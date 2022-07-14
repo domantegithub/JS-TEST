@@ -8,17 +8,18 @@ nurodomas gamintojas ir jo pagaminti modeliai.
 Pastaba: Sukurta kortelė, kurioje yra informacija apie automobilį (brand), turi 
 turėti bent minimalų stilių ir būti responsive;
 -------------------------------------------------------------------------- */
-
+const ENDPOINT = "cars.json";
 
 const renderCars = (car) => {
     const { brand, models } = car;
     //Susikuriam naujus elementus (korteles)
     const carEl = document.createElement("div");
-    const carBrand = document.createElement("h3");
-    const modelsList = document.createElement("ul");
-  //tortele tiesiog viename baltame fone pastilizuotas elementas
     carEl.className = "card";
-    carBrand.textContent = brand;
+  const carBrand = document.createElement("h3");
+  const modelsList = document.createElement("ul");
+  // //tortele tiesiog viename baltame fone pastilizuotas elementas
+  
+  carBrand.textContent = brand;
     
     car.models.forEach(car => {
         const list = document.createElement("li");
@@ -27,16 +28,15 @@ const renderCars = (car) => {
     });
 
     carEl.append(carBrand, modelsList);
-    //itraukiam naujus elementus
-    document.querySelector("#output").prepend(carEl);
+    document.querySelector(".output").prepend(carEl);
   };
 
-const ENDPOINT = "cars.json";
 
 fetch(ENDPOINT)
   .then((resp) => resp.json())
   .then((response) => {
-    response.forEach((car) => renderCars(car)); //paima elementus ir juos islista i sarasa
+    const cars = response;
+    cars.forEach((car) => renderCars(car));
   })
   .catch((error) => {
     console.error(error);
